@@ -17,7 +17,13 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = '/dashboard';
+
+    
+    public static function redirectTo($guard){
+        return $guard.'/dashboard';
+    }
+
 
     /**
      * Define your route model bindings, pattern filters, etc.
