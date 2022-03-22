@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminProfileController;
+use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\FrontEnd\IndexController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,15 @@ Route::get('/admin/profile/edit', [AdminProfileController::class, 'edit'])->name
 Route::post('/admin/profile/update', [AdminProfileController::class, 'update'])->name('admin.profile.update');
 Route::get('/admin/profile/password', [AdminProfileController::class, 'password'])->name('admin.profile.password');
 Route::post('/admin/profile/password/update', [AdminProfileController::class, 'passwordUpdate'])->name('admin.profile.password.update');
+// Brand route
+Route::group(['prefix'=>'brand'], function(){
+    Route::get('/manage-brand', [BrandController::class, 'index'])->name('brand');
+    Route::post('/get-brand-data', [BrandController::class, 'getBrandData'])->name('brand.data.get');
+    Route::post('/store', [BrandController::class, 'store'])->name('brand.store');
+    Route::get('/edit/{id}', [BrandController::class, 'edit'])->name('brand.edit');
+    Route::post('/update', [BrandController::class, 'update'])->name('brand.update');
+    Route::post('/delete', [BrandController::class, 'delete'])->name('brand.delete');
+});
 
 
 // ================= User all routes ================

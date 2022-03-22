@@ -1,3 +1,7 @@
+@php
+    $route = Route::current()->getName();
+    $prefix = Request::route()->getPrefix();
+@endphp
 <aside class="main-sidebar">
     <!-- sidebar-->
     <section class="sidebar">
@@ -17,23 +21,23 @@
         <!-- sidebar menu-->
         <ul class="sidebar-menu" data-widget="tree">
 
-            <li>
-                <a href="index.html">
+            <li class="{{ Request::is('admin/dashboard') ? 'active' : '' }}">
+                <a href="{{ url('/admin/dashboard') }}">
                     <i data-feather="pie-chart"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
 
-            <li class="treeview">
+            <li class="treeview {{ Request::is('brand*') ? 'active' : '' }}">
                 <a href="#">
-                    <i data-feather="message-circle"></i>
-                    <span>Application</span>
+                    <i data-feather="bold"></i>
+                    <span>Brand</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="chat.html"><i class="ti-more"></i>Chat</a></li>
+                    <li class="{{ $route == 'brand' ? 'active' : '' }}"><a href="{{ route('brand') }}"><i class="ti-more"></i>Manage Brand</a></li>
                     <li><a href="calendar.html"><i class="ti-more"></i>Calendar</a></li>
                 </ul>
             </li>
