@@ -28,17 +28,24 @@
                 </a>
             </li>
 
-            <li class="treeview {{ Request::is('brand*') ? 'active' : '' }}">
-                <a href="#">
+            <li class="{{ Request::is('brand*') ? 'active' : '' }}">
+                <a href="{{ route('brand') }}">
                     <i data-feather="bold"></i>
                     <span>Brand</span>
+                </a>
+            </li>
+
+            <li class="treeview {{ Request::is('category*') ? 'active' : '' }}">
+                <a href="#">
+                    <i data-feather="list"></i> 
+                    <span>Category</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="{{ $route == 'brand' ? 'active' : '' }}"><a href="{{ route('brand') }}"><i class="ti-more"></i>Manage Brand</a></li>
-                    <li><a href="calendar.html"><i class="ti-more"></i>Calendar</a></li>
+                    <li class="{{ $route == 'category' ? 'active' : '' }}"><a href="{{ route('category') }}"><i class="ti-more"></i>Manage Category</a></li>
+                    <li class="{{ $route == 'sub.category' ? 'active' : '' }}"><a href="{{ route('sub.category') }}"><i class="ti-more"></i>Manage Sub Category</a></li>
                 </ul>
             </li>
 

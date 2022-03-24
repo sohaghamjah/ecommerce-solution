@@ -18,6 +18,7 @@ class BrandController extends Controller
         $brand = Brand::all();
         if($request->ajax()){
             return Datatables::of($brand)
+                    ->addIndexColumn()
                     ->editColumn('image', function ($brand) {
                         if ($brand->image != null) {
                             $html = '<img src="' . asset($brand->image) . '" height="30px" width="60px">';
@@ -32,7 +33,7 @@ class BrandController extends Controller
                         $action .= '<a data-id="'.$brand->id.'" style="cursor: pointer" class="dropdown-item delete-data"><i class="fas fa-trash text-primary"></i> Delete</a>';
 
                         return '<div class="dropdown">
-                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button title="Action" class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-th-list"></i>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

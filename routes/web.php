@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\FrontEnd\IndexController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +44,24 @@ Route::group(['prefix'=>'brand'], function(){
     Route::get('/edit/{id}', [BrandController::class, 'edit'])->name('brand.edit');
     Route::post('/update', [BrandController::class, 'update'])->name('brand.update');
     Route::post('/delete', [BrandController::class, 'delete'])->name('brand.delete');
+});
+// Brand route
+Route::group(['prefix'=>'category'], function(){
+    Route::get('/manage-category', [CategoryController::class, 'index'])->name('category');
+    Route::post('/get-category-data', [CategoryController::class, 'getCategoryData'])->name('category.data.get');
+    Route::post('/store', [CategoryController::class, 'store'])->name('category.store');
+    Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::post('/update', [CategoryController::class, 'update'])->name('category.update');
+    Route::post('/delete', [CategoryController::class, 'delete'])->name('category.delete');
+    // Sub category
+    Route::get('/manage-sub-category', [SubCategoryController::class, 'index'])->name('sub.category');
+    Route::post('/get-sub-category-data', [SubCategoryController::class, 'getSubCategoryData'])->name('sub.category.data.get');
+    Route::post('/sub/store', [SubCategoryController::class, 'store'])->name('sub.category.store');
+    Route::get('sub/edit/{id}', [SubCategoryController::class, 'edit'])->name('sub.category.edit');
+    Route::post('sub/update', [SubCategoryController::class, 'update'])->name('sub.category.update');
+    Route::post('sub/delete', [SubCategoryController::class, 'delete'])->name('sub.category.delete');
+    // Sub category
+    Route::get('/manage-sub-category', [SubCategoryController::class, 'index'])->name('sub.category');
 });
 
 

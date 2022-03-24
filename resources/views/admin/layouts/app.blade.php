@@ -27,6 +27,9 @@
         text-align: initial;
         color: black;
     }
+    h2#swal2-title {
+      color: black !important;
+    }
   </style>
 
     @stack('style')

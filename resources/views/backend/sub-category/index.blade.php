@@ -11,17 +11,17 @@
             <div class="col-md-8">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h4 class="box-title">All Brands</h4>
+                        <h4 class="box-title">All Sub Category</h4>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table class="table mb-0" id="brand_dt">
+                        <table class="table mb-0" id="sub_category_dt">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
+                                    <th scope="col">Category</th>
                                     <th scope="col">Name En</th>
                                     <th scope="col">Name Bn</th>
-                                    <th scope="col">Image</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -33,18 +33,31 @@
             <div class="col-md-4">
                 <div class="box">
                     <div class="box-header">
-                        <h4 class="box-title">Add new Brand</h4>
+                        <h4 class="box-title">Add New Sub Category</h4>
                         <div class="box-controls pull-right">
-
+                            
                         </div>
                     </div>
 
                     <div class="box-body">
-                        <form novalidate="" method="POST" action="{{ route('brand.store') }}"
-                            enctype="multipart/form-data">
+                        <form novalidate="" method="POST" action="{{ route('sub.category.store') }}">
                             @csrf
                             <div class="form-group">
-                                <h5>Brand Name En<span class="text-danger">*</span></h5>
+								<h5>Category <span class="text-danger">*</span></h5>
+								<div class="controls">
+									<select name="category_id" id="category_id" required="" class="form-control" aria-invalid="false">
+										<option value="">Select Category</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category -> id }}">{{ $category -> name_en }}</option>
+                                        @endforeach
+									</select>
+								<div class="help-block"></div></div>
+                                @error('category_id')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+							</div>
+                            <div class="form-group">
+                                <h5>Sub Category Name En<span class="text-danger">*</span></h5>
                                 <div class="controls">
                                     <input type="text" name="name_en" id="name_en" class="form-control" required=""
                                         data-validation-required-message="This field is required" aria-invalid="false">
@@ -55,7 +68,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <h5>Brand Name Bn<span class="text-danger">*</span></h5>
+                                <h5>Sub Category Name Bn<span class="text-danger">*</span></h5>
                                 <div class="controls">
                                     <input type="text" name="name_bn" id="name_bn" class="form-control" required=""
                                         data-validation-required-message="This field is required" aria-invalid="false">
@@ -65,19 +78,8 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <h5>Brand Image<span class="text-danger">*</span></h5>
-                                <div class="controls">
-                                    <input type="file" name="image" id="image" class="form-control" required=""
-                                        data-validation-required-message="This field is required" aria-invalid="false">
-                                    <div class="help-block"></div>
-                                    @error('image')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
                             <div class="text-xs-right">
-                                <input type="submit" class="btn btn-rounded btn-info" value="Add">
+                                <input type="submit" class="btn btn-rounded btn-info" value="Add Sub Category">
                             </div>
                         </form>
                     </div>
@@ -91,22 +93,22 @@
 @push('script')
     <script>
         $(document).ready( function () {
-            // Brand data show
-            var brand_dt = $('#brand_dt').DataTable({
+            // Category data show
+            var sub_category_dt = $('#sub_category_dt').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
                     type: "post",
-                    url: "{{ route('brand.data.get') }}",
+                    url: "{{ route('sub.category.data.get') }}",
                     data: {
                         _token: _token,
                     },
                 },
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false  },
+                    { data: 'categories', name: 'categories' },
                     { data: 'name_en', name: 'name_en' },
                     { data: 'name_bn', name: 'name_bn' },
-                    { data: 'image', name: 'image', searchable: false, orderable: false },
                     { data: 'action', name: 'action', orderable: false, searchable: false },
                 ]
             });
@@ -114,7 +116,7 @@
             $(document).on('click','.delete-data', function(e){
                 e.preventDefault();
                 var id = $(this).data('id');
-                var url = "{{ route('brand.delete') }}";
+                var url = "{{ route('sub.category.delete') }}";
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
@@ -136,10 +138,10 @@
                             success: function (response) {
                                 Swal.fire(
                                     'Deleted!',
-                                    'Your file has been deleted.',
+                                    'Sub category has been deleted successfull.',
                                     'success'
                                 )
-                                brand_dt.draw()
+                                sub_category_dt.draw();
                             }
                         })
                     }

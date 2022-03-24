@@ -11,17 +11,17 @@
             <div class="col-md-8">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h4 class="box-title">All Brands</h4>
+                        <h4 class="box-title">All Category</h4>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table class="table mb-0" id="brand_dt">
+                        <table class="table mb-0" id="category_dt">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Name En</th>
                                     <th scope="col">Name Bn</th>
-                                    <th scope="col">Image</th>
+                                    <th scope="col">Icon</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -33,18 +33,17 @@
             <div class="col-md-4">
                 <div class="box">
                     <div class="box-header">
-                        <h4 class="box-title">Add new Brand</h4>
+                        <h4 class="box-title">Add New Category</h4>
                         <div class="box-controls pull-right">
-
+                            
                         </div>
                     </div>
 
                     <div class="box-body">
-                        <form novalidate="" method="POST" action="{{ route('brand.store') }}"
-                            enctype="multipart/form-data">
+                        <form novalidate="" method="POST" action="{{ route('category.store') }}">
                             @csrf
                             <div class="form-group">
-                                <h5>Brand Name En<span class="text-danger">*</span></h5>
+                                <h5>Category Name En<span class="text-danger">*</span></h5>
                                 <div class="controls">
                                     <input type="text" name="name_en" id="name_en" class="form-control" required=""
                                         data-validation-required-message="This field is required" aria-invalid="false">
@@ -55,7 +54,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <h5>Brand Name Bn<span class="text-danger">*</span></h5>
+                                <h5>Category Name Bn<span class="text-danger">*</span></h5>
                                 <div class="controls">
                                     <input type="text" name="name_bn" id="name_bn" class="form-control" required=""
                                         data-validation-required-message="This field is required" aria-invalid="false">
@@ -66,18 +65,18 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <h5>Brand Image<span class="text-danger">*</span></h5>
+                                <h5>Category Icon<span class="text-danger">*</span></h5>
                                 <div class="controls">
-                                    <input type="file" name="image" id="image" class="form-control" required=""
+                                    <input type="text" name="icon" id="icon" class="form-control" required=""
                                         data-validation-required-message="This field is required" aria-invalid="false">
                                     <div class="help-block"></div>
-                                    @error('image')
+                                    @error('icon')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
                             <div class="text-xs-right">
-                                <input type="submit" class="btn btn-rounded btn-info" value="Add">
+                                <input type="submit" class="btn btn-rounded btn-info" value="Add Category">
                             </div>
                         </form>
                     </div>
@@ -91,13 +90,13 @@
 @push('script')
     <script>
         $(document).ready( function () {
-            // Brand data show
-            var brand_dt = $('#brand_dt').DataTable({
+            // Category data show
+            var category_dt = $('#category_dt').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
                     type: "post",
-                    url: "{{ route('brand.data.get') }}",
+                    url: "{{ route('category.data.get') }}",
                     data: {
                         _token: _token,
                     },
@@ -106,7 +105,7 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false  },
                     { data: 'name_en', name: 'name_en' },
                     { data: 'name_bn', name: 'name_bn' },
-                    { data: 'image', name: 'image', searchable: false, orderable: false },
+                    { data: 'icon', name: 'icon', searchable: false, orderable: false },
                     { data: 'action', name: 'action', orderable: false, searchable: false },
                 ]
             });
@@ -114,7 +113,7 @@
             $(document).on('click','.delete-data', function(e){
                 e.preventDefault();
                 var id = $(this).data('id');
-                var url = "{{ route('brand.delete') }}";
+                var url = "{{ route('category.delete') }}";
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
@@ -136,10 +135,10 @@
                             success: function (response) {
                                 Swal.fire(
                                     'Deleted!',
-                                    'Your file has been deleted.',
+                                    'Category has been deleted successfull.',
                                     'success'
                                 )
-                                brand_dt.draw()
+                                category_dt.draw();
                             }
                         })
                     }
