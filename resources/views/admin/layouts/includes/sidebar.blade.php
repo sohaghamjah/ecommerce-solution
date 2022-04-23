@@ -46,7 +46,29 @@
                 <ul class="treeview-menu">
                     <li class="{{ $route == 'category' ? 'active' : '' }}"><a href="{{ route('category') }}"><i class="ti-more"></i>Manage Category</a></li>
                     <li class="{{ $route == 'sub.category' ? 'active' : '' }}"><a href="{{ route('sub.category') }}"><i class="ti-more"></i>Manage Sub Category</a></li>
+                    <li class="{{ $route == 'sub.sub.category' ? 'active' : '' }}"><a href="{{ route('sub.sub.category') }}"><i class="ti-more"></i>Manage Sub Sub Category</a></li>
                 </ul>
+            </li>
+
+            <li class="treeview {{ Request::is('product*') ? 'active' : '' }}">
+                <a href="#">
+                    <i data-feather="list"></i> 
+                    <span>Product</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route == 'product.add' ? 'active' : '' }}"><a href="{{ route('product.create') }}"><i class="ti-more"></i>Add Product</a></li>
+                    <li class="{{ $route == 'product' ? 'active' : '' }}"><a href="{{ route('product') }}"><i class="ti-more"></i>Manage Product</a></li>
+                </ul>
+            </li>
+
+            <li class="{{ Request::is('slider*') ? 'active' : '' }}">
+                <a href="{{ route('slider') }}">
+                    <i data-feather="bold"></i>
+                    <span>Slider</span>
+                </a>
             </li>
 
             <li class="treeview">

@@ -1,4 +1,5 @@
 @extends('admin.layouts.app')
+@section('title','Sub Category Edit')
 @push('style')
 
 @endpush
@@ -58,7 +59,7 @@
                                 </div>
                             </div>
                             <div class="text-xs-right">
-                                <input type="submit" class="btn btn-rounded btn-info" value="Update Sub Category">
+                                <input type="submit" class="btn btn-rounded btn-info" value="Update Sub Sub Category">
                             </div>
                         </form>
                     </div>

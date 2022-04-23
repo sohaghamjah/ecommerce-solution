@@ -25,7 +25,7 @@ class SubCategoryController extends Controller
             'name_bn.required' => 'Sub category name bangle field is required',
         ]);
 
-        SubCategory::insert([
+        SubCategory::create([
             'category_id' => $request->category_id,
             'name_en' => $request->name_en,
             'name_bn' => $request->name_bn,

@@ -1,4 +1,5 @@
 @extends('admin.layouts.app')
+@section('title', 'Manage Sub Category')
 @push('style')
 
 @endpush

@@ -1,4 +1,5 @@
 @extends('admin.layouts.app')
+@section('title','Brand Manage')
 @push('style')
 
 @endpush

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
-use Image;
+use Intervention\Image\Facades\Image;
 
 class BrandController extends Controller
 {
@@ -60,7 +60,7 @@ class BrandController extends Controller
         Image::make($file)->resize(300,300)->save('upload/admin/brand/'.$image_name);
         $image_url = 'upload/admin/brand/'.$image_name;
 
-        Brand::insert([
+        Brand::create([
             'name_en' => $request->name_en,
             'name_bn' => $request->name_bn,
             'slug_en' => strtolower(str_replace(' ', '-', $request->name_en)),
