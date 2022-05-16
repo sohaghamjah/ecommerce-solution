@@ -20,8 +20,8 @@
           @else
           <ul class="list-unstyled">
             <li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
-            <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
-            <li><a href="#"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
+            <li><a href="{{ route('product.wishlist') }}"><i class="icon fa fa-heart"></i>Wishlist</a></li>
+            <li><a href="{{ route('product.cart.page') }}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
             <li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
             @auth
             <li><a href="{{ route('dashboard') }}"><i class="icon fa fa-user"></i>Dashboard</a></li>
@@ -120,29 +120,20 @@
           <div class="dropdown dropdown-cart"> <a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown">
             <div class="items-cart-inner">
               <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i> </div>
-              <div class="basket-item-count"><span class="count">2</span></div>
-              <div class="total-price-basket"> <span class="lbl">cart -</span> <span class="total-price"> <span class="sign">$</span><span class="value">600.00</span> </span> </div>
+              <div class="basket-item-count"><span id="totalQty" class="count"> </span></div>
+              <div class="total-price-basket"> <span class="lbl">cart -</span> <span class="total-price"> <span class="sign">$</span><span id="total-price" class="value"></span> </span> </div>
             </div>
             </a>
             <ul class="dropdown-menu">
               <li>
-                <div class="cart-item product-summary">
-                  <div class="row">
-                    <div class="col-xs-4">
-                      <div class="image"> <a href="detail.html"><img src="{{ asset('frontend/') }}/assets/images/cart.jpg" alt=""></a> </div>
-                    </div>
-                    <div class="col-xs-7">
-                      <h3 class="name"><a href="index.php?page-detail">Simple Product</a></h3>
-                      <div class="price">$600.00</div>
-                    </div>
-                    <div class="col-xs-1 action"> <a href="#"><i class="fa fa-trash"></i></a> </div>
-                  </div>
+                <div class="cart-item product-summary" id="miniCartShow">
+
                 </div>
                 <!-- /.cart-item -->
                 <div class="clearfix"></div>
                 <hr>
                 <div class="clearfix cart-total">
-                  <div class="pull-right"> <span class="text">Sub Total :</span><span class='price'>$600.00</span> </div>
+                  <div class="pull-right"> <span class="text">Sub Total :</span><span class='price' id="subTotal"></span> </div>
                   <div class="clearfix"></div>
                   <a href="checkout.html" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a> </div>
                 <!-- /.cart-total--> 
@@ -197,14 +188,16 @@
 
                           @foreach ($subcategories as $subcategory)
                             <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                              <h2 class="title">@if (session()->get('language') == 'bangla') {{ $subcategory->name_bn }}  @else {{ $subcategory->name_en }}  @endif</h2>
-                              <ul class="links">
+                              <a href="{{ url('product/subcategory/'.$subcategory->id.'/'.$subcategory->slug_en) }}" style="padding: 0">
+                                <h2 class="title">@if (session()->get('language') == 'bangla') {{ $subcategory->name_bn }}  @else {{ $subcategory->name_en }}  @endif</h2>
+                                <ul class="links">
+                              </a>
                                 {{-- Get category from database --}}
                                 @php
                                   $subsubcategories = DB::table('sub_sub_categories')->where('subcategory_id',$subcategory->id)->orderBy('name_en','ASC')->get();
                                 @endphp
                                 @foreach ($subsubcategories as $subsubcategory)
-                                <li><a href="#">@if (session()->get('language') == 'bangla') {{ $subsubcategory->name_bn }}  @else {{ $subsubcategory->name_en }}  @endif</a></li>
+                                <li><a href="{{ url('product/subsubcategory/'.$subsubcategory->id.'/'.$subsubcategory->slug_en) }}">@if (session()->get('language') == 'bangla') {{ $subsubcategory->name_bn }}  @else {{ $subsubcategory->name_en }}  @endif</a></li>
                                 @endforeach
                               </ul>
                             </div>

@@ -71,6 +71,26 @@
                 </a>
             </li>
 
+            <li class="{{ Request::is('coupon*') ? 'active' : '' }}">
+                <a href="{{ route('coupon') }}">
+                    <i data-feather="bold"></i>
+                    <span>Coupons</span>
+                </a>
+            </li>
+
+            <li class="treeview {{ Request::is('shipping*') ? 'active' : '' }}">
+                <a href="#">
+                    <i data-feather="list"></i> 
+                    <span>Shipping Area</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route == 'division' ? 'active' : '' }}"><a href="{{ route('division') }}"><i class="ti-more"></i>Manage Division</a></li>
+                </ul>
+            </li>
+
             <li class="treeview">
                 <a href="#">
                     <i data-feather="mail"></i> <span>Mailbox</span>

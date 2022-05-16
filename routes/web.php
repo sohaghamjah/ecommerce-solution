@@ -4,12 +4,17 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\Backend\CopponController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\ShippingAreaController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\SubSubCategoryController;
+use App\Http\Controllers\FrontEnd\CartController;
 use App\Http\Controllers\FrontEnd\IndexController;
 use App\Http\Controllers\FrontEnd\LanguageController;
+use App\Http\Controllers\User\CartPageController;
+use App\Http\Controllers\User\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -106,6 +111,34 @@ Route::group(['prefix'=>'slider'], function(){
     Route::get('/inactive/{id}', [SliderController::class, 'inactive'])->name('slider.inactive');
     Route::get('/active/{id}', [SliderController::class, 'active'])->name('slider.active');
 });
+// Coppon route
+Route::group(['prefix'=>'coupon'], function(){
+    Route::get('/manage-coupon', [CopponController::class, 'index'])->name('coupon');
+    Route::post('/get-coupon-data', [CopponController::class, 'getCouponData'])->name('coupon.data.get');
+    Route::post('/store', [CopponController::class, 'store'])->name('coupon.store');
+    Route::get('/edit/{id}', [CopponController::class, 'edit'])->name('coupon.edit');
+    Route::post('/update', [CopponController::class, 'update'])->name('coupon.update');
+    Route::post('/delete', [CopponController::class, 'delete'])->name('coupon.delete');
+});
+
+// Shipping area route
+Route::group(['prefix'=>'shipping'], function(){
+    // Division route
+    Route::get('/manage-division', [ShippingAreaController::class, 'index'])->name('division');
+    Route::post('/get-division-data', [ShippingAreaController::class, 'getDivisionData'])->name('division.data.get');
+    Route::post('/store', [ShippingAreaController::class, 'store'])->name('division.store');
+    Route::get('/edit/{id}', [ShippingAreaController::class, 'edit'])->name('division.edit');
+    Route::post('/update', [ShippingAreaController::class, 'update'])->name('division.update');
+    Route::post('/delete', [ShippingAreaController::class, 'delete'])->name('division.delete');
+
+    // District route
+    Route::get('/manage-district', [ShippingAreaController::class, 'districtIndex'])->name('disctirct');
+    Route::post('/get-district-data', [ShippingAreaController::class, 'getDistrictData'])->name('district.data.get');
+    Route::post('/store', [ShippingAreaController::class, 'disctrictStore'])->name('district.store');
+    Route::get('/edit/{id}', [ShippingAreaController::class, 'disctrictEdit'])->name('district.edit');
+    Route::post('/update', [ShippingAreaController::class, 'districtUpdate'])->name('district.update');
+    Route::post('/delete', [ShippingAreaController::class, 'districtDelete'])->name('district.delete');
+});
 
 // ================= Frontend all routes ================
 // User routes
@@ -132,4 +165,30 @@ Route::get('/language/english', [LanguageController::class, 'english'])->name('e
 // Product single page routes
 Route::get('/product/single/{id}/{slug}', [IndexController::class, 'productSinglePage']);
 Route::get('/product/tag/{tag}', [IndexController::class, 'tagWiseProductShow']);
+Route::get('product/subcategory/{id}/{slug}', [IndexController::class, 'subCategoryWiseProductShow']);
+Route::get('product/subsubcategory/{id}/{slug}', [IndexController::class, 'subSubCategoryWiseProductShow']);
 
+// Product Cart Modal
+
+Route::post('/product/cart/modal/show', [IndexController::class, 'productCartModalShow'])->name('product.cart.modal.show');
+Route::post('/product/add/to/cart', [CartController::class, 'productAddToCart'])->name('product.add.to.cart');
+Route::post('/product/mini/cart/show', [CartController::class, 'productMiniCartShow'])->name('product.mini.cart.show');
+Route::post('/product/mini/cart/remove', [CartController::class, 'miniCartRemove'])->name('product.mini.cart.remove');
+
+
+route::group(['prefix' => 'user', 'middleware' => ['user','auth']], function(){
+
+    // Wishlist product
+    Route::get('/product/wishlist', [WishlistController::class, 'index'])->name('product.wishlist');
+    Route::post('/product/get-wishlist-data', [WishlistController::class, 'getWishListData'])->name('wishlist.data.get');
+    Route::post('/product/wishlist/store', [WishlistController::class, 'store'])->name('product.wishlist.store');
+    Route::post('/product/wishlist/remove', [WishlistController::class, 'remove'])->name('product.wishlist.remove');
+
+});
+
+// Cart page product route
+Route::get('/user/product/cart/page', [CartPageController::class, 'index'])->name('product.cart.page');
+Route::post('/user/product/get-cartpage-data', [CartPageController::class, 'getCartPagetData'])->name('cartpage.data.get');
+Route::post('/user/product/cartpage/remove', [CartPageController::class, 'cartPageRemove'])->name('cartpage.remove');
+Route::post('/user/product/cartpage/increment', [CartPageController::class, 'cartPageIncrement'])->name('cartpage.increment');
+Route::post('/user/product/cartpage/decrement', [CartPageController::class, 'cartPageDecrement'])->name('cartpage.decrement');

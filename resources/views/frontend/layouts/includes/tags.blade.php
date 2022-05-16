@@ -9,11 +9,11 @@
         <div class="tag-list"> 
             @if (session()->get('language') == 'bangla')
                 @foreach ($tags_bn as $tag)
-                    <a class="item {{ Request::is('product/tag/'.$tag -> tag_bn) == 'product/tag/'.$tag -> tag_bn  ? 'active' : ''}}" title="{{ $tag -> tag_bn }}" href="{{ url('product/tag/'.$tag -> tag_bn) }}">{{ $tag -> tag_bn }}</a> 
+                    <a class="item {{ Request::is('product/tag/'.$tag -> tag_bn) == 'product/tag/'.$tag -> tag_bn  ? 'active' : ''}}" title="{{ str_replace(',', ' ', $tag -> tag_bn) }}" href="{{ url('product/tag/'.$tag -> tag_bn) }}">{{ str_replace(',', ' ', $tag -> tag_bn) }}</a> 
                 @endforeach
             @else
                 @foreach ($tags_en as $tag)
-                    <a class="item {{ Request::is('product/tag/'.$tag -> tag_en) == 'product/tag/'.$tag -> tag_en  ? 'active' : ''}}" title="{{ $tag -> tag_en }}" href="{{ url('product/tag/'.$tag -> tag_en) }}">{{ $tag -> tag_en }}</a> 
+                    <a class="item {{ Request::is('product/tag/'.$tag -> tag_en) == 'product/tag/'.$tag -> tag_en  ? 'active' : ''}}" title="{{ str_replace(',', ' ', $tag -> tag_en) }}" href="{{ url('product/tag/'.$tag -> tag_en) }}">{{ str_replace(',', ' ', $tag -> tag_en) }}</a> 
                 @endforeach
             @endif
             

@@ -83,6 +83,7 @@
 
   <script>
     let _token = '{!! csrf_token() !!}';
+    
     function notification(type, message){
         Swal.fire({
             position: 'top-end',

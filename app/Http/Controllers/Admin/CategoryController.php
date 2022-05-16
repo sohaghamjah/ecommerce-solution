@@ -68,7 +68,7 @@ class CategoryController extends Controller
 
     
     public function update(Request $request){
-
+        
         $id = $request->id;
         $request->validate([
             'name_en' => 'required',

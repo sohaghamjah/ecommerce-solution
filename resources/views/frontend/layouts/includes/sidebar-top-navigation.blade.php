@@ -22,16 +22,18 @@
 
                             @foreach ($subcategories as $subcategory)
                             <div class="col-sm-12 col-md-3">
-                                <h2 class="title">@if (session()->get('language') == 'bangla')
-                                    {{ $subcategory->name_bn }} @else {{ $subcategory->name_en }} @endif
-                                </h2>
+                                <a style="padding: 0" href="{{ url('product/subcategory/'.$subcategory->id.'/'.$subcategory->slug_en) }}">
+                                    <h2 class="title">@if (session()->get('language') == 'bangla')
+                                        {{ $subcategory->name_bn }} @else {{ $subcategory->name_en }} @endif
+                                    </h2>
+                                </a>
                                 <ul class="links list-unstyled">
                                     @php
                                     $subsubcategories =
                                     DB::table('sub_sub_categories')->where('subcategory_id',$subcategory->id)->orderBy('name_en','ASC')->get();
                                     @endphp
                                     @foreach ($subsubcategories as $subsubcategory)
-                                    <li><a href="#">@if (session()->get('language') == 'bangla')
+                                    <li><a href="{{ url('product/subsubcategory/'.$subsubcategory->id.'/'.$subsubcategory->slug_en) }}">@if (session()->get('language') == 'bangla')
                                             {{ $subsubcategory->name_bn }} @else
                                             {{ $subsubcategory->name_en }} @endif</a></li>
                                     @endforeach

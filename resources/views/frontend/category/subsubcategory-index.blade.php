@@ -18,8 +18,15 @@ return $str;
         <div class="breadcrumb-inner">
             <ul class="list-inline list-unstyled">
                 <li><a href="{{ url('/') }}">Home</a></li>
-                <li class='active'>{{ $tag }}</li>
+                <li class='active'>
+                    @if (session()->get('language') == 'bangla')
+                        {{ $subsubcategory->name_bn }}
+                    @else
+                        {{ $subsubcategory->name_en }}
+                    @endif
+                </li>
             </ul>
+
         </div>
         <!-- /.breadcrumb-inner -->
     </div>
