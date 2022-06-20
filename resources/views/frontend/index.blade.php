@@ -5,10 +5,10 @@
 @endpush
 @php
 function bn_price($str){
-$en = array(0,1,2,3,4,5,6,7,8,9);
-$bn = array('০','১','২','৩','৪','৫','৬','৭','৮','৯');
-$str = str_replace($en, $bn, $str);
-return $str;
+    $en = array(0,1,2,3,4,5,6,7,8,9);
+    $bn = array('০','১','২','৩','৪','৫','৬','৭','৮','৯');
+    $str = str_replace($en, $bn, $str);
+    return $str;
 }
 @endphp
 @section('frontend')
