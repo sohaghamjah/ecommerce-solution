@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ asset('backend/') }}/images/favicon.ico">
 
-    <title>Ecommerce Solution - @yield('title') </title>
+    <title>@yield('title') - Ecommerce Solution</title>
     
 	<!-- Vendors Style-->
 	<link rel="stylesheet" href="{{ asset('backend/') }}/css/vendors_css.css">

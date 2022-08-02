@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title', 'Manage District')
+@section('title', 'Manage State')
 @push('style')
 
 @endpush
@@ -21,6 +21,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
+                                    <th scope="col">State</th>
                                     <th scope="col">District</th>
                                     <th scope="col">Division</th>
                                     <th scope="col">Action</th>
@@ -41,16 +42,25 @@
                     </div>
 
                     <div class="box-body">
-                        <form novalidate="" method="POST" action="{{ route('district.store') }}">
+                        <form novalidate="" method="POST" action="{{ route('state.store') }}">
                             @csrf
                             <div class="form-group">
                                 <label for="" class="required">Division Name</label>
-                                <select name="division_id" id="division_id" class="form-control">
+                                <select name="division_id" id="division_id" class="form-control" onchange="division(this.value)">
                                     @foreach ($divisions as $division)
                                         <option value="{{ $division->id }}">{{ $division->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('division')
+                                @error('division_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="required">District Name</label>
+                                <select name="district_id" id="district_id" class="form-control">
+                                        
+                                </select>
+                                @error('district_id')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -59,7 +69,7 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                             <div class="text-xs-right">
-                                <input type="submit" class="btn btn-rounded btn-info" value="Add Division">
+                                <input type="submit" class="btn btn-rounded btn-info" value="Add State">
                             </div>
                         </form>
                     </div>
@@ -79,7 +89,7 @@
                 serverSide: true,
                 ajax: {
                     type: "post",
-                    url: "{{ route('district.data.get') }}",
+                    url: "{{ route('state.data.get') }}",
                     data: {
                         _token: _token,
                     },
@@ -87,6 +97,7 @@
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false  },
                     { data: 'name' },
+                    { data: 'district' }, 
                     { data: 'division' }, 
                     { data: 'action', orderable: false, searchable: false },
                 ]
@@ -95,7 +106,7 @@
             $(document).on('click','.delete-data', function(e){
                 e.preventDefault();
                 var id = $(this).data('id');
-                var url = "{{ route('district.delete') }}";
+                var url = "{{ route('state.delete') }}";
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
@@ -127,6 +138,20 @@
                 })
             });
         });
+
+        // District get data with ajax
+
+        function division(value){
+            $.ajax({
+                type: "POST",
+                url: "{{ route('get.district') }}",
+                data: {_token: _token, id: value},
+                dataType: "JSON",
+                success: function (data) {
+                    $('#district_id').html(data);
+                }
+            });
+        }
     </script>
 @endpush
 

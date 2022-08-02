@@ -4,14 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class District extends Model
+class State extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
 
     public function division(){
         return $this->belongsTo(Division::class);
+    }
+    public function district(){
+        return $this->belongsTo(District::class);
     }
 }

@@ -88,6 +88,8 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="{{ $route == 'division' ? 'active' : '' }}"><a href="{{ route('division') }}"><i class="ti-more"></i>Manage Division</a></li>
+                    <li class="{{ Request::is('shipping/manage-district*') ? 'active' : '' }}"><a href="{{ route('disctirct') }}"><i class="ti-more"></i>Manage District</a></li>
+                    <li class="{{ Request::is('shipping/manage-state*') ? 'active' : '' }}"><a href="{{ route('state') }}"><i class="ti-more"></i>Manage State</a></li>
                 </ul>
             </li>
 

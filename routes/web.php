@@ -37,7 +37,7 @@ Route::middleware('auth:admin')->group(function(){
 
     Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
         return view('admin.dashboard');
-    })->name('dashboard')->middleware('auth:admin');
+    })->name('admin.dashboard')->middleware('auth:admin');
 
     // ============= Admin All Route =================
     Route::get('/admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
@@ -126,18 +126,28 @@ Route::group(['prefix'=>'shipping'], function(){
     // Division route
     Route::get('/manage-division', [ShippingAreaController::class, 'index'])->name('division');
     Route::post('/get-division-data', [ShippingAreaController::class, 'getDivisionData'])->name('division.data.get');
-    Route::post('/store', [ShippingAreaController::class, 'store'])->name('division.store');
-    Route::get('/edit/{id}', [ShippingAreaController::class, 'edit'])->name('division.edit');
-    Route::post('/update', [ShippingAreaController::class, 'update'])->name('division.update');
-    Route::post('/delete', [ShippingAreaController::class, 'delete'])->name('division.delete');
+    Route::post('division/store', [ShippingAreaController::class, 'store'])->name('division.store');
+    Route::get('division/edit/{id}', [ShippingAreaController::class, 'edit'])->name('division.edit');
+    Route::post('division/update', [ShippingAreaController::class, 'update'])->name('division.update');
+    Route::post('division/delete', [ShippingAreaController::class, 'delete'])->name('division.delete');
 
     // District route
     Route::get('/manage-district', [ShippingAreaController::class, 'districtIndex'])->name('disctirct');
     Route::post('/get-district-data', [ShippingAreaController::class, 'getDistrictData'])->name('district.data.get');
-    Route::post('/store', [ShippingAreaController::class, 'disctrictStore'])->name('district.store');
-    Route::get('/edit/{id}', [ShippingAreaController::class, 'disctrictEdit'])->name('district.edit');
-    Route::post('/update', [ShippingAreaController::class, 'districtUpdate'])->name('district.update');
-    Route::post('/delete', [ShippingAreaController::class, 'districtDelete'])->name('district.delete');
+    Route::post('district/store', [ShippingAreaController::class, 'disctrictStore'])->name('district.store');
+    Route::get('district/edit/{id}', [ShippingAreaController::class, 'disctrictEdit'])->name('district.edit');
+    Route::post('district/update', [ShippingAreaController::class, 'districtUpdate'])->name('district.update');
+    Route::post('district/delete', [ShippingAreaController::class, 'districtDelete'])->name('district.delete');
+
+
+    // District route
+    Route::post('/get-district', [ShippingAreaController::class, 'getDistrict'])->name('get.district');
+    Route::get('/manage-state', [ShippingAreaController::class, 'stateIndex'])->name('state');
+    Route::post('/get-state-data', [ShippingAreaController::class, 'getStateData'])->name('state.data.get');
+    Route::post('state/store', [ShippingAreaController::class, 'stateStore'])->name('state.store');
+    Route::get('state/edit/{id}', [ShippingAreaController::class, 'stateEdit'])->name('state.edit');
+    Route::post('state/update', [ShippingAreaController::class, 'stateUpdate'])->name('state.update');
+    Route::post('state/delete', [ShippingAreaController::class, 'stateDelete'])->name('state.delete');
 });
 
 // ================= Frontend all routes ================
